@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Фейковый бот для тестов
+ * Фейковый бот для тестов {@link BotLogicTest}
  *
  * @author Seraph-coder
  * @since 11.11.2025
  */
-public class FakeBot implements Bot{
+public class FakeBot implements Bot {
     private final List<String> messages;
 
+    /**
+     * Конструктор, инициализирующий список сообщений
+     */
     public FakeBot() {
         messages = new ArrayList<>();
     }
@@ -36,6 +39,13 @@ public class FakeBot implements Bot{
             return null;
         }
         return messages.getLast();
+    }
+
+    /**
+     * Получить количество отправленных сообщений
+     */
+    public int getSize() {
+        return messages.size();
     }
 
     /**

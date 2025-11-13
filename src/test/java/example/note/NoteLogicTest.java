@@ -1,13 +1,11 @@
-import example.note.NoteLogic;
+package example.note;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * Тесты для NoteLogic {@link NoteLogic}
- * <br>
- * Тестирование через Assertions.assertAll, чтобы не останавливать тест при первом провале,
- * а сразу увидеть все ошибки
  *
  * @author Seraph-coder
  * @since 11.11.2025
@@ -20,7 +18,7 @@ public class NoteLogicTest {
      * сохранялась между тестами
      */
     @BeforeEach
-     void  setUp() {
+    void setUp() {
         noteLogic = new NoteLogic();
     }
 
