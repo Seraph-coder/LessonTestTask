@@ -11,20 +11,18 @@ import org.junit.jupiter.api.Test;
  * @since 11.11.2025
  */
 public class BotLogicTest {
-    private final FakeBot fakeBot = new FakeBot();
-    private final BotLogic botLogic = new BotLogic(fakeBot);
-
+    private FakeBot fakeBot;
+    private BotLogic botLogic;
     private User user;
 
     /**
-     * Перед каждым тестом создаём нового пользователя, и очищаем сообщения фейкового бота
-     * Не пересоздаем FakeBot, так как он хранит историю сообщений, которую можно просто очистить,
-     * в то время как BotLogic не хранит состояние между вызовами processCommand
+     * Создание нового пользователя, фейкового бота и логики бота перед каждым тестом
      */
     @BeforeEach
     void setup() {
         user = new User(1L);
-        fakeBot.clearMessages();
+        fakeBot = new FakeBot();
+        botLogic = new BotLogic(fakeBot);
     }
 
 

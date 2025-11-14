@@ -47,11 +47,4 @@ public class FakeBot implements Bot {
     public int getSize() {
         return messages.size();
     }
-
-    /**
-     * Очистить все отправленные сообщения
-     */
-    public void clearMessages() {
-        messages.clear();
-    }
 }
