@@ -23,60 +23,39 @@ public class NoteLogicTest {
     }
 
     /**
-     * Тестирование команды добавления заметки и просмотра заметок
+     * Тестирование команд добавления и просмотра заметок
      * <br>
      * Входные данные:
      * <ul>
-     *     <li>/add Купить молоко</li>
-     *     <li>/add Купить хлеб</li>
+     *     <li>/add "Купить молоко"</li>
+     *     <li>/add "Купить хлеб"</li>
+     *     <li>/notes</li>
      * </ul>
      * Ожидаемый результат:
      * <ul>
      *     <li>Note "Купить молоко" added!</li>
      *     <li>Note "Купить хлеб" added!</li>
-     *     </li>
+     *     <li>Your notes:
+     *     <br>
+     *     1) Купить молоко
+     *     <br>
+     *     2) Купить хлеб</li>
      * </ul>
      */
     @Test
-    void testAddCommand() {
+    void testAddAndNotesCommand() {
         String addResponse1 = noteLogic.handleMessage("/add Купить молоко");
         String addResponse2 = noteLogic.handleMessage("/add Купить хлеб");
+        String notesResponse = noteLogic.handleMessage("/notes");
         Assertions.assertEquals(
                 "Note \"Купить молоко\" added!", addResponse1);
         Assertions.assertEquals(
                 "Note \"Купить хлеб\" added!", addResponse2);
-    }
-
-    /**
-     * Тестирование команды просмотра заметок при отсутствии заметок
-     * <br>
-     * Входные данные:
-     * <ul>
-     *     <li>/add Купить молоко</li>
-     *     <li>/add Купить хлеб</li>
-     *     <li>/notes</li>
-     * </ul>
-     * Ожидаемый результат:
-     * <ul>
-     *     <li>Your notes:
-     *     <br>
-     *         1) Купить молоко
-     *         <br>
-     *         2) Купить хлеб
-     *     </li>
-     * </ul>
-     */
-    @Test
-    void testNotesCommand() {
-        noteLogic.handleMessage("/add Купить молоко");
-        noteLogic.handleMessage("/add Купить хлеб");
-        String notesResponse = noteLogic.handleMessage("/notes");
         Assertions.assertEquals("""
                         Your notes:
                         1) Купить молоко
                         2) Купить хлеб""", notesResponse);
     }
-
 
     /**
      * Тестирование команды редактирования заметки
