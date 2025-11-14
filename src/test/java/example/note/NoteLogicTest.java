@@ -38,7 +38,7 @@ public class NoteLogicTest {
      * </ul>
      */
     @Test
-    void testAddAndCommands() {
+    void testAddCommand() {
         String addResponse1 = noteLogic.handleMessage("/add Купить молоко");
         String addResponse2 = noteLogic.handleMessage("/add Купить хлеб");
         Assertions.assertEquals(
@@ -67,7 +67,7 @@ public class NoteLogicTest {
      * </ul>
      */
     @Test
-    void testNotesCommandNoNotes() {
+    void testNotesCommand() {
         noteLogic.handleMessage("/add Купить молоко");
         noteLogic.handleMessage("/add Купить хлеб");
         String notesResponse = noteLogic.handleMessage("/notes");
@@ -100,7 +100,7 @@ public class NoteLogicTest {
      * </ul>
      */
     @Test
-    void editCommand() {
+    void testEditCommand() {
         noteLogic.handleMessage("/add Купить молоко");
         String editResponse = noteLogic.handleMessage("/edit 1 Купить хлеб");
         String notesResponse = noteLogic.handleMessage("/notes");
@@ -130,7 +130,7 @@ public class NoteLogicTest {
      * </ul>
      */
     @Test
-    void deleteCommand() {
+    void testDeleteCommand() {
         noteLogic.handleMessage("/add Купить молоко");
         String delResponse = noteLogic.handleMessage("/del 1");
         String notesResponse = noteLogic.handleMessage("/notes");
