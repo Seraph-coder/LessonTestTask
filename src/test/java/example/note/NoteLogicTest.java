@@ -29,12 +29,35 @@ public class NoteLogicTest {
      * <ul>
      *     <li>/add Купить молоко</li>
      *     <li>/add Купить хлеб</li>
-     *     <li>/notes</li>
      * </ul>
      * Ожидаемый результат:
      * <ul>
      *     <li>Note "Купить молоко" added!</li>
      *     <li>Note "Купить хлеб" added!</li>
+     *     </li>
+     * </ul>
+     */
+    @Test
+    void testAddAndCommands() {
+        String addResponse1 = noteLogic.handleMessage("/add Купить молоко");
+        String addResponse2 = noteLogic.handleMessage("/add Купить хлеб");
+        Assertions.assertEquals(
+                "Note \"Купить молоко\" added!", addResponse1);
+        Assertions.assertEquals(
+                "Note \"Купить хлеб\" added!", addResponse2);
+    }
+
+    /**
+     * Тестирование команды просмотра заметок при отсутствии заметок
+     * <br>
+     * Входные данные:
+     * <ul>
+     *     <li>/add Купить молоко</li>
+     *     <li>/add Купить хлеб</li>
+     *     <li>/notes</li>
+     * </ul>
+     * Ожидаемый результат:
+     * <ul>
      *     <li>Your notes:
      *     <br>
      *         1) Купить молоко
@@ -44,19 +67,16 @@ public class NoteLogicTest {
      * </ul>
      */
     @Test
-    void addAndNotesCommands() {
-        String addResponse1 = noteLogic.handleMessage("/add Купить молоко");
-        String addResponse2 = noteLogic.handleMessage("/add Купить хлеб");
+    void testNotesCommandNoNotes() {
+        noteLogic.handleMessage("/add Купить молоко");
+        noteLogic.handleMessage("/add Купить хлеб");
         String notesResponse = noteLogic.handleMessage("/notes");
-        Assertions.assertAll(
-                () -> Assertions.assertEquals("Note \"Купить молоко\" added!", addResponse1),
-                () -> Assertions.assertEquals("Note \"Купить хлеб\" added!", addResponse2),
-                () -> Assertions.assertEquals("""
+        Assertions.assertEquals("""
                         Your notes:
                         1) Купить молоко
-                        2) Купить хлеб""", notesResponse)
-        );
+                        2) Купить хлеб""", notesResponse);
     }
+
 
     /**
      * Тестирование команды редактирования заметки
@@ -84,12 +104,10 @@ public class NoteLogicTest {
         noteLogic.handleMessage("/add Купить молоко");
         String editResponse = noteLogic.handleMessage("/edit 1 Купить хлеб");
         String notesResponse = noteLogic.handleMessage("/notes");
-        Assertions.assertAll(
-                () -> Assertions.assertEquals("Note 1 edited!", editResponse),
-                () -> Assertions.assertEquals("""
+        Assertions.assertEquals("Note 1 edited!", editResponse);
+        Assertions.assertEquals("""
                         Your notes:
-                        1) Купить хлеб""", notesResponse)
-        );
+                        1) Купить хлеб""", notesResponse);
     }
 
     /**
@@ -116,9 +134,8 @@ public class NoteLogicTest {
         noteLogic.handleMessage("/add Купить молоко");
         String delResponse = noteLogic.handleMessage("/del 1");
         String notesResponse = noteLogic.handleMessage("/notes");
-        Assertions.assertAll(
-                () -> Assertions.assertEquals("Note \"Купить молоко\" deleted!", delResponse),
-                () -> Assertions.assertEquals("Your notes:", notesResponse)
-        );
+        Assertions.assertEquals(
+                "Note \"Купить молоко\" deleted!", delResponse);
+        Assertions.assertEquals("Your notes:", notesResponse);
     }
 }
