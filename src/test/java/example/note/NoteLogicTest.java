@@ -111,6 +111,7 @@ public class NoteLogicTest {
     @Test
     void testDeleteCommand() {
         noteLogic.handleMessage("/add Купить молоко");
+        noteLogic.handleMessage("/add Купить хлеб");
         String delResponse = noteLogic.handleMessage("/del 1");
         String notesResponse = noteLogic.handleMessage("/notes");
         Assertions.assertEquals(

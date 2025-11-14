@@ -169,7 +169,34 @@ public class BotLogicTest {
      * </ul>
      */
     @Test
-    void repeatWithoutWrongAnswers() {
+    void testRepeatWithoutWrongAnswers() {
+        botLogic.processCommand(user, "/repeat");
+        Assertions.assertEquals("Нет вопросов для повторения", fakeBot.getLastMessage());
+        Assertions.assertEquals(State.INIT, user.getState());
+    }
+
+    /**
+     * Тест команды повторения после правильных ответов на тест
+     * <br>
+     * Входные данные:
+     * <ul>
+     *     <li>Команда "/test"</li>
+     *     <li>Ответ "100" на вопрос "Вычислите степень: 10^2"</li>
+     *     <li>Ответ "6" на вопрос "Сколько будет 2 + 2 * 2"</li>
+     *     <li>Команда "/repeat"</li>
+     * </ul>
+     * <br>
+     * Ожидаемый результат:
+     * <ul>
+     *     <li>Бот сообщает, что нет вопросов для повторения</li>
+     *     <li>Состояние пользователя остаётся INIT</li>
+     * </ul>
+     */
+    @Test
+    void TestRepeatWithRightAnswersOnly() {
+        botLogic.processCommand(user, "/test");
+        botLogic.processCommand(user, "100");
+        botLogic.processCommand(user, "6");
         botLogic.processCommand(user, "/repeat");
         Assertions.assertEquals("Нет вопросов для повторения", fakeBot.getLastMessage());
         Assertions.assertEquals(State.INIT, user.getState());
@@ -233,7 +260,6 @@ public class BotLogicTest {
         Assertions.assertEquals("Вы ошиблись, верный ответ: 100", fakeBot.getMessageAt(4));
         Assertions.assertEquals("Тест завершен", fakeBot.getMessageAt(5));
     }
-
     /**
      * Тест команды остановки теста во время теста
      * <br>
